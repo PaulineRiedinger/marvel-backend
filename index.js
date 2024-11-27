@@ -20,7 +20,7 @@ const characterIdRouter = require("./routes/characterId");
 const charactersRouter = require("./routes/characters");
 const comicIdRouter = require("./routes/comicId");
 const comicsRouter = require("./routes/comics");
-const comicsByCharacterIdRouter = require("./routes/comicsbyCharacterId");
+const comicsByCharacterIdRouter = require("./routes/comicsByCharacterId");
 const userRouter = require("./routes/user");
 
 // Se connecter à la base de données
