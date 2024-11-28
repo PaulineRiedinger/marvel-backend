@@ -2,12 +2,16 @@
 const express = require("express");
 const axios = require("axios");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // Importer dotenv pour utiliser l'API
 require("dotenv").config();
 
 // Créer le serveur
 const app = express();
+
+// Autoriser les requêtes depuis le front-end
+app.use(cors());
 
 // Récupérer des bodys dans les routes
 app.use(express.json());
