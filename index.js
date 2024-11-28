@@ -40,10 +40,14 @@ app.use("/", userRouter);
 
 // Créer une route GET d'accueil
 app.get("/", (req, res) => {
-  res.status(200).json({
-    message:
-      "Un grand pouvoir implique de grandes responsabilités... Bienvenue sur le MarvelVerse !",
-  });
+  try {
+    res.status(200).json({
+      message:
+        "Un grand pouvoir implique de grandes responsabilités... Bienvenue sur le MarvelVerse !",
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 });
 
 // Créer une route pour gérer les routes inconnues

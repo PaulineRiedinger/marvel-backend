@@ -5,17 +5,27 @@ const axios = require("axios");
 // Créer un routeur
 const router = express.Router();
 
-// Définir l'URL de l'API
-const MARVEL_API_URL = "https://lereacteur-marvel-api.herokuapp.com/";
 // Récupérer la clé de l'API
 const MARVEL_API_KEY = process.env.MARVEL_API_KEY;
 
 // Route GET pour récupérer la liste des personnages
 router.get("/", async (req, res) => {
   try {
+    let limit = 100;
+
+    let filters = "";
+    if (req.query.name) {
+      filters += `&name=${req.query.name}`;
+    }
+    if (req.query.limit) {
+      filters += `&limit=${req.query.limit}`;
+    }
+    if (req.query.page) {
+      filters += `&skip=${(req.query.page - 1) * limit}`;
+    }
     // Requête GET pour récupérer les personnages
     const response = await axios.get(
-      `${MARVEL_API_URL}characters?apiKey=${MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${MARVEL_API_KEY}${filters}&limit=${limit}`
     );
     res.status(200).json(response.data); // Envoie les données reçues de l'API
   } catch (error) {
