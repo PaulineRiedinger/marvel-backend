@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/:comicId", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.characterId}?apiKey=${MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.comicId}?apiKey=${MARVEL_API_KEY}`
     );
     res.status(200).json(response.data);
   } catch (error) {
