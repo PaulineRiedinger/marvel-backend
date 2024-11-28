@@ -11,27 +11,29 @@ const MARVEL_API_KEY = process.env.MARVEL_API_KEY;
 // Route pour récupérer la liste des comics
 router.get("/", async (req, res) => {
   try {
-    let limit = 100;
+    // Lecture des paramètres avec des valeurs par défaut
+    const limit = parseInt(req.query.limit) || 100;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limit;
 
-    let filters = "";
+    // Création des filtres dynamiques
+    let filters = `&limit=${limit}&skip=${skip}`;
     if (req.query.title) {
-      filters += `&title=${req.query.title}`;
+      filters += `&title=${encodeURIComponent(req.query.title)}`;
     }
-    if (req.query.limit) {
-      filters += `&limit=${req.query.limit}`;
-    }
-    if (req.query.page) {
-      filters += `&skip=${(req.query.page - 1) * limit}`;
-    }
-    // Requête GET pour récupérer les comics
+
+    // Requête à l'API Marvel
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${MARVEL_API_KEY}${filters}&limit=${limit}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${MARVEL_API_KEY}${filters}`
     );
+
+    // Retour des données à l'utilisateur
     res.status(200).json(response.data);
   } catch (error) {
-    // Si erreur -> message d'erreur
-    res.status(500).json({
+    // Gestion d'erreur
+    res.status(error.response?.status || 500).json({
       message:
+        error.response?.data?.message ||
         "Erreur lors de la récupération des comics... Il semble que Hulk ait tout détruit en passant !",
     });
   }
