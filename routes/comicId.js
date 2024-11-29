@@ -5,6 +5,9 @@ const axios = require("axios");
 // Créer un routeur
 const router = express.Router();
 
+// Récupérer la clé de l'API
+const MARVEL_API_KEY = process.env.MARVEL_API_KEY;
+
 // Route GET pour récupérer les informations d'un comic spécifique
 router.get("/:comicId", async (req, res) => {
   try {
