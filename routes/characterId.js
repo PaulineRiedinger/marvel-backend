@@ -9,7 +9,7 @@ const router = express.Router();
 const MARVEL_API_KEY = process.env.MARVEL_API_KEY;
 
 // Route GET pour récupérer les informations d'un personnage spécifique
-router.get("comics/:characterId", async (req, res) => {
+router.get("/comics/:characterId", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/characters/${req.params.characterId}?apiKey=${MARVEL_API_KEY}`
