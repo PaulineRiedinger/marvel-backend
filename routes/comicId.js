@@ -6,7 +6,7 @@ const axios = require("axios");
 const router = express.Router();
 
 // Route GET pour récupérer les informations d'un comic spécifique
-router.get("/:comicId", async (req, res) => {
+router.get("/comic/:comicId", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/comic/${req.params.comicId}?apiKey=${MARVEL_API_KEY}`
